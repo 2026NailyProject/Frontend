@@ -1,35 +1,17 @@
 :root {
-  --color-bg: #ffffff;
-  --color-surface: #f4f4f5;
-  --color-text: #18181b;
-  --color-text-muted: #71717a;
-  --color-border: #e4e4e7;
-  --color-accent: #7c3aed;
-
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-sans: 'Noto Sans KR', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-brand: 'Modak', 'Noto Sans KR', system-ui, sans-serif;
 
   font-family: var(--font-sans);
   line-height: 1.5;
   font-weight: 400;
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: #1a1a1a;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #09090b;
-    --color-surface: #27272a;
-    --color-text: #fafafa;
-    --color-text-muted: #a1a1aa;
-    --color-border: #3f3f46;
-    --color-accent: #a78bfa;
-  }
 }
 
 *,
@@ -49,5 +31,9 @@ body {
 }
 
 a {
-  color: var(--color-accent);
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
 }

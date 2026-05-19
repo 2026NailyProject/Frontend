@@ -1,11 +1,24 @@
+import { FeatureSection } from '@/components/landing/FeatureSection'
+import { Footer } from '@/components/landing/Footer'
+import { GallerySection } from '@/components/landing/GallerySection'
+import { HeroPanel } from '@/components/landing/HeroPanel'
+import { FEATURES } from '@/constants/landing'
+import '@/styles/landing.css'
+
 export function HomePage() {
   return (
-    <section className="home">
-      <h1>Naily</h1>
-      <p>React + TypeScript + Vite로 시작했습니다.</p>
-      <p className="home__hint">
-        <code>src/pages/HomePage.tsx</code>를 수정해 보세요.
-      </p>
-    </section>
+    <div className="landing">
+      <HeroPanel variant="top" showHeader />
+      <div className="landing__features">
+        {FEATURES.map((feature) => (
+          <FeatureSection key={feature.title} {...feature} />
+        ))}
+      </div>
+      <GallerySection />
+      <div className="landing-bottom">
+        <HeroPanel variant="bottom" showTitle={false} />
+        <Footer />
+      </div>
+    </div>
   )
 }
