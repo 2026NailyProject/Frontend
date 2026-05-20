@@ -362,9 +362,9 @@
 
 .landing-footer__logo {
   margin: 0 0 0.5rem;
-  font-family: var(--font-brand);
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--naily-text);
   line-height: 1;
 }
