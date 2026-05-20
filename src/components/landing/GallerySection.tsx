@@ -1,25 +1,25 @@
 import { useState } from 'react'
-import { ImagePlaceholder } from '@/components/landing/ImagePlaceholder'
-import { GALLERY_ITEM_COUNT } from '@/constants/landing'
+import { GALLERY_IMAGES } from '@/constants/landing'
 
 const VISIBLE_COUNT = 4
 
 export function GallerySection() {
-  const [startIndex, setStartIndex] = useState(0)
+  const [pageIndex, setPageIndex] = useState(0)
 
-  const items = Array.from({ length: GALLERY_ITEM_COUNT }, (_, i) => i)
+  const pageCount = Math.ceil(GALLERY_IMAGES.length / VISIBLE_COUNT)
+  const startIndex = pageIndex * VISIBLE_COUNT
 
   const handlePrev = () => {
-    setStartIndex((prev) => (prev - 1 + GALLERY_ITEM_COUNT) % GALLERY_ITEM_COUNT)
+    setPageIndex((prev) => (prev - 1 + pageCount) % pageCount)
   }
 
   const handleNext = () => {
-    setStartIndex((prev) => (prev + 1) % GALLERY_ITEM_COUNT)
+    setPageIndex((prev) => (prev + 1) % pageCount)
   }
 
-  const visibleItems = Array.from({ length: VISIBLE_COUNT }, (_, offset) => {
-    const index = (startIndex + offset) % GALLERY_ITEM_COUNT
-    return items[index]
+  const visibleImages = Array.from({ length: VISIBLE_COUNT }, (_, offset) => {
+    const index = (startIndex + offset) % GALLERY_IMAGES.length
+    return GALLERY_IMAGES[index]
   })
 
   return (
@@ -39,12 +39,10 @@ export function GallerySection() {
         </button>
 
         <div className="gallery-section__track">
-          {visibleItems.map((item) => (
-            <ImagePlaceholder
-              key={item}
-              variant="square"
-              label={`갤러리 이미지 ${item + 1}`}
-            />
+          {visibleImages.map((imageSrc, index) => (
+            <div key={`${imageSrc}-${index}`} className="gallery-section__item">
+              <img src={imageSrc} alt={`네일 이미지 ${index + 1}`} className="gallery-section__image" />
+            </div>
           ))}
         </div>
 
