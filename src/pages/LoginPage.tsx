@@ -1,7 +1,15 @@
 import '@/styles/login.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { setLoggedIn } from '@/utils/auth'
 
 export function LoginPage() {
+  const navigate = useNavigate()
+
+  const handleLogin = () => {
+    setLoggedIn(true)
+    navigate('/process')
+  }
+
   return (
     <div className="login-wireframe">
       <div className="login-wireframe__canvas">
@@ -48,7 +56,7 @@ export function LoginPage() {
                 </a>
               </div>
 
-              <button type="button" className="login-form__submit">
+              <button type="button" className="login-form__submit" onClick={handleLogin}>
                 로그인
               </button>
             </form>

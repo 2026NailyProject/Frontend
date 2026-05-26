@@ -1,5 +1,6 @@
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { ProcessGuidePage } from '@/pages/ProcessGuidePage'
 import { SignupEmailPage } from '@/pages/SignupEmailPage'
 import { SignupGooglePage } from '@/pages/SignupGooglePage'
 import { SignupLandingPage } from '@/pages/SignupLandingPage'
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/process" element={<ProcessGuidePage />} />
       <Route path="/signup" element={<SignupLandingPage />} />
       <Route path="/signup/email" element={<SignupEmailPage />} />
       <Route path="/signup/google" element={<SignupGooglePage />} />

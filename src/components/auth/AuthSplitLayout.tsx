@@ -9,7 +9,9 @@ export function AuthSplitLayout({ children }: AuthSplitLayoutProps) {
   return (
     <div className="auth-split">
       <aside className="auth-split__visual" aria-hidden="true">
-        <p className="auth-split__logo">Naily</p>
+        <Link to="/" className="auth-split__logo">
+          Naily
+        </Link>
         <span className="auth-split__line auth-split__line--left" />
         <span className="auth-split__line auth-split__line--right" />
       </aside>

@@ -6,12 +6,14 @@ type HeroPanelProps = {
   variant: 'top' | 'bottom'
   showTitle?: boolean
   showHeader?: boolean
+  onStartClick?: () => void
 }
 
 export function HeroPanel({
   variant,
   showTitle = true,
   showHeader = false,
+  onStartClick,
 }: HeroPanelProps) {
   return (
     <section
@@ -28,7 +30,7 @@ export function HeroPanel({
         <div className="hero-panel__content">
           {showTitle && <h1 className="hero-panel__title">Own your Nail</h1>}
           <p className="hero-panel__subtitle">{HERO_SUBTITLE}</p>
-          <CtaButton />
+          <CtaButton onClick={onStartClick} />
         </div>
       </div>
     </section>
