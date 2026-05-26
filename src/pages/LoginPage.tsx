@@ -13,7 +13,7 @@ export function LoginPage() {
             <Link to="/login" className="login-wireframe__link">
               로그인
             </Link>
-            <Link to="/" className="login-wireframe__cta">
+            <Link to="/signup" className="login-wireframe__cta">
               무료로 시작하기
             </Link>
           </nav>
@@ -58,26 +58,26 @@ export function LoginPage() {
             </div>
 
             <div className="social-login">
-              <button type="button" className="social-login__button">
+              <Link to="/signup/google" className="social-login__button">
                 <img
                   src="/images/google-logo.png"
                   alt=""
                   className="social-login__icon-image social-login__icon-image--google"
                 />
                 구글로 로그인
-              </button>
-              <button type="button" className="social-login__button">
+              </Link>
+              <Link to="/signup/naver" className="social-login__button">
                 <img
                   src="/images/naver-logo.png"
                   alt=""
                   className="social-login__icon-image social-login__icon-image--naver"
                 />
                 네이버로 로그인
-              </button>
+              </Link>
             </div>
 
             <p className="login-card__signup">
-              아직 네일리 회원이 아니신가요? <a href="#">회원가입</a>
+              아직 네일리 회원이 아니신가요? <Link to="/signup">회원가입</Link>
             </p>
           </section>
         </main>

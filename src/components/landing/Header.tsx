@@ -11,7 +11,7 @@ export function Header() {
           <Link to="/login" className="landing-header__login">
             로그인
           </Link>
-          <Link to="/login" className="landing-header__signup">
+          <Link to="/signup" className="landing-header__signup">
             무료로 시작하기
           </Link>
         </nav>
