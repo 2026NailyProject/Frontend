@@ -113,6 +113,40 @@
   font-weight: 600;
 }
 
+.process-guide__design-button {
+  margin-top: 14px;
+  border: 1px solid #272727;
+  border-radius: 10px;
+  background: #fff;
+  color: #272727;
+  height: 46px;
+  min-width: 200px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.process-guide__recommend-button {
+  margin-top: 14px;
+  border: 1px solid #de869f;
+  border-radius: 10px;
+  background: #fdeff4;
+  color: #a54b69;
+  height: 46px;
+  min-width: 260px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.process-guide__recommend-button:disabled {
+  opacity: 0.45;
+}
+
+.process-guide__recommend-result {
+  margin: 12px 0 0;
+  color: #333;
+  font-size: 1rem;
+}
+
 .process-guide__camera {
   margin-top: 24px;
   width: min(100%, 640px);

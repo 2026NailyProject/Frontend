@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { usePersonalColorRecommender } from '@/services/aiContext'
+import { setRecommendedSeasonCode } from '@/utils/personalColorStorage'
 import '@/styles/process-guide.css'
 
 const STEPS = [
@@ -10,8 +12,11 @@ const STEPS = [
 ]
 
 export function ProcessGuidePage() {
+  const navigate = useNavigate()
+  const personalColorRecommender = usePersonalColorRecommender()
   const [cameraOn, setCameraOn] = useState(false)
   const [cameraError, setCameraError] = useState<string | null>(null)
+  const [seasonRecommendation, setSeasonRecommendation] = useState<string | null>(null)
   const [videoInputs, setVideoInputs] = useState<MediaDeviceInfo[]>([])
   const [selectedDeviceId, setSelectedDeviceId] = useState<string>('default')
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -69,6 +74,47 @@ export function ProcessGuidePage() {
     }
   }
 
+  const captureFrameBlob = async (): Promise<Blob> => {
+    const video = videoRef.current
+    if (!video) {
+      throw new Error('Video element is not ready.')
+    }
+
+    const width = Math.max(1, video.videoWidth || 1280)
+    const height = Math.max(1, video.videoHeight || 720)
+
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    const ctx = canvas.getContext('2d')
+    if (!ctx) {
+      throw new Error('Canvas context is not available.')
+    }
+    ctx.drawImage(video, 0, 0, width, height)
+
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Failed to create image blob.'))), 'image/jpeg', 0.92)
+    })
+    return blob
+  }
+
+  const handleRecommendSeason = async () => {
+    try {
+      const frame = await captureFrameBlob()
+      const rec = await personalColorRecommender.recommend({ frame })
+      if (!rec?.seasonCode) {
+        setSeasonRecommendation(null)
+        setCameraError('추천 시즌을 얻지 못했습니다. (연결된 모델이 없을 수 있어요)')
+        return
+      }
+      setRecommendedSeasonCode(rec.seasonCode)
+      setSeasonRecommendation(rec.seasonCode)
+      setCameraError(null)
+    } catch {
+      setCameraError('시즌 추천에 실패했습니다. 카메라가 켜져 있는지 확인해 주세요.')
+    }
+  }
+
   const selectedLabel = useMemo(() => {
     if (selectedDeviceId === 'default') return '기본 카메라'
     const found = videoInputs.find((d) => d.deviceId === selectedDeviceId)
@@ -122,6 +168,26 @@ export function ProcessGuidePage() {
         >
           손 촬영하기
         </button>
+        <button
+          type="button"
+          className="process-guide__recommend-button"
+          onClick={() => void handleRecommendSeason()}
+          disabled={!cameraOn}
+        >
+          AI로 퍼스널컬러 시즌 추천
+        </button>
+        <button
+          type="button"
+          className="process-guide__design-button"
+          onClick={() => navigate('/design/preferences')}
+        >
+          네일 디자인 생성하기
+        </button>
+        {seasonRecommendation && (
+          <p className="process-guide__recommend-result">
+            추천 시즌: <strong>{seasonRecommendation}</strong>
+          </p>
+        )}
 
         {cameraOn && (
           <section className="process-guide__camera">
